@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>To‑Do List</title>
+<style>
+body {
+font-family: Arial;
+background: linear-gradient(135deg, #667eea, #764ba2);
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.container {
+background: #fff;
+padding: 20px;
+width: 320px;
+border-radius: 10px;
+}
+input {
+width: 70%;
+padding: 8px;
+}
+button {
+padding: 8px;
+cursor: pointer;
+}
+li {
+display: flex;
+justify-content: space-between;
+margin-top: 8px;
+}
+</style>
+</head>
+<body>
+
+
+<div class="container">
+<h2>To‑Do List</h2>
+<input id="task" placeholder="New task">
+<button onclick="addTask()">Add</button>
+<ul id="list"></ul>
+</div>
+
+
+<script>
+const list = document.getElementById("list");
+
+
+function loadTasks() {
+list.innerHTML = localStorage.getItem("tasks") || "";
+}
+
+
+function addTask() {
+const task = document.getElementById("task").value;
+if (task === "") return;
+
+
+list.innerHTML += `<li>${task} <button onclick="remove(this)">❌</button></li>`;
+document.getElementById("task").value = "";
+saveTasks();
+}
+
+
+function remove(btn) {
+btn.parentElement.remove();
+saveTasks();
+}
+
+
+function saveTasks() {
+localStorage.setItem("tasks", list.innerHTML);
+}
+
+
+loadTasks();
+</script>
+
+
+</body>
+</html>
